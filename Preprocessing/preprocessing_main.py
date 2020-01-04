@@ -2,6 +2,10 @@ import os
 import sys
 import subprocess
 from shutil import copyfile
+from folder_location import *
+from preprocess_meta import *
+from preprocess_others import *
+from preprocess_packaging import *
 
 def create_dataset(dataset=3, location="/home"):
 	global DATASET
@@ -22,7 +26,7 @@ def create_dataset(dataset=3, location="/home"):
 	if not os.path.isdir(location):
 		os.makedirs(location)
 	
-	from folder_location import *
+
 
 
 	#########################
@@ -82,7 +86,7 @@ def create_dataset(dataset=3, location="/home"):
 	############################
 	##### CREATE MAIN META #####
 	############################
-	from preprocess_meta import *
+
 	requests_meta()
 	meta_per_case()
 	file_amount()
@@ -103,7 +107,7 @@ def create_dataset(dataset=3, location="/home"):
 	############################
 	#### CREATE GENERAL META ###
 	############################
-	from preprocess_others import *
+
 	# (DNA Methylation) or (DNA Methylation + Gene Expression + miRNA Expression)
 	if (dataset==1) or (dataset==5):
 		meta_methylation_list_files()
@@ -117,7 +121,7 @@ def create_dataset(dataset=3, location="/home"):
 	############################
 	###### CREATE DATASET ######
 	############################
-	from preprocess_packaging import *
+
 
 	# 1. labels
 	label_cancer_type(dataset=DATASET)

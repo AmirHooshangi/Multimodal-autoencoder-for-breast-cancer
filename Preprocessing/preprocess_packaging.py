@@ -4340,4 +4340,4 @@ if __name__ == '__main__':
     input_gen_metlonggenmir_survival()
     input_mir_metlonggenmir_survival()
     stop = timeit.default_timer()
-    print stop - start
+    print (stop - start)

@@ -1,9 +1,26 @@
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
+MAIN_MDBN_TCGA_BRCA = "/home/"
+
 ######################################
 ########### DATASET SOURCE ###########
 ######################################
 # Set the "Dataset Source" folders based on where you downloaded your all your TCGA BRCA files
 # Separate your files based on the data type
 # 1. Methylation Beta Value
+MAIN_MDBN_TCGA_BRCA = "/home/velorin/Multimodal-autoencoder-for-breast-cancer"
 DATASET_METHYLATION = MAIN_MDBN_TCGA_BRCA + "methylation/"
 # 2. Gene Expression Quantification
 DATASET_GENE = MAIN_MDBN_TCGA_BRCA + "EXP/gene_expression_quantification/"

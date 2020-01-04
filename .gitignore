@@ -1,0 +1,5 @@
+.venv/
+Preprocessing/__pycache__/
+Tensorflow/__pycache__/
+*~
+*#

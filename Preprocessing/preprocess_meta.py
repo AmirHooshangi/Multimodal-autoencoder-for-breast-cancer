@@ -312,4 +312,4 @@ if __name__ == '__main__':
     file_amount()
     submitter_id_to_case_uuid()
     stop = timeit.default_timer()
-    print stop - start
+    print (stop - start)

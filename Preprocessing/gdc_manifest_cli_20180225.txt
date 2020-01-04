@@ -930,7 +930,7 @@ e9334aff-819e-4ad2-b119-9868397047da	nationwidechildrens.org_clinical.TCGA-XX-A8
 b23033e9-c6f0-4c28-87d3-985cd4df71ff	nationwidechildrens.org_clinical.TCGA-E2-A155.xml	c0b56ad1896d29a39caaec946cb2098e	81884	live
 2f296d76-a20e-4452-9a75-ab6640739720	nationwidechildrens.org_clinical.TCGA-A2-A0ST.xml	bc8434a40f339939841e33b0e593a34e	102183	live
 af63358c-e29f-4baf-8c97-2d9818bdc151	nationwidechildrens.org_clinical.TCGA-E9-A243.xml	2adb2ebb5608d9a6195382654793b92b	101321	live
-7ef2aa37-0212-4a0e-8415-0d6de2459502	nationwidechildrens.org_clinical.TCGA-A2-A0CT.xml	6b7e407f401056d711049f484cfe2f50	75777	live
+00049989-fa21-48fb-8dda-710c0dd5932e	nationwidechildrens.org_clinical.TCGA-A2-A0CT.xml	6b7e407f401056d711049f484cfe2f50	75777	live
 647ce113-e10a-4691-bb6f-f71a2e040ce5	nationwidechildrens.org_clinical.TCGA-C8-A1HM.xml	2da38d29118b67a1d4f66b28cd75c201	82371	live
 d7d29844-1f6b-4c1a-9aa3-551e595ecd06	nationwidechildrens.org_clinical.TCGA-C8-A130.xml	58ac834eaebfb82083c1dba45cc47a78	64883	live
 33477249-0070-4666-9161-ce0cb1443d4a	nationwidechildrens.org_clinical.TCGA-AR-A1AU.xml	0938a0ed006883f26f85972c09d93120	109535	live
