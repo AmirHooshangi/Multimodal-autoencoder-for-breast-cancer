@@ -27,7 +27,7 @@ def create_dataset(dataset=3, location="/home"):
                 os.makedirs(location)
 
 
-        already_downloaded = False
+        already_downloaded = True
 
         #########################
         #### DOWNLOAD DATASET ###
