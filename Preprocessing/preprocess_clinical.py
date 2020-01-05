@@ -760,7 +760,7 @@ def pathology_receptor():
         tree = None
 
         try: 
-        tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
+            tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
         except:
             print(file_id, " ", file_name)
             continue
