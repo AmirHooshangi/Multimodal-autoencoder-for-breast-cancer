@@ -747,14 +747,15 @@ def pathology_receptor():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
 
-        if meta_clinical in bad_list:
-            print('bad filename: ' , meta_clinical)
-            continue
-
+      
         file_id = meta_clinical[file_id_column]
         file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
+
+        if file_id in bad_list:
+            print('bad filename: ' , meta_clinical)
+            continue
 
 
 
