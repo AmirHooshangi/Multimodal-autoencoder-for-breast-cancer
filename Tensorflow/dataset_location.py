@@ -3,7 +3,7 @@
 ########################
 # The main folder for all the inputs/features of your training set
 # You need at least 30GB of free space for this folder
-# MAIN_MDBN_TCGA_BRCA = "main_data_folder"
+MAIN_MDBN_TCGA_BRCA = "/home"
 DATASET_INPUT = MAIN_MDBN_TCGA_BRCA + "input/"
 
 INPUT_MET_TYPE_ER = DATASET_INPUT + "type/met/input_met_type_er.npy"
