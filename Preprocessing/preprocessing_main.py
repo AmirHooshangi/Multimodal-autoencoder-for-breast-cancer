@@ -8,32 +8,32 @@ from preprocess_others import *
 from preprocess_packaging import *
 
 def create_dataset(dataset=3, location="/home"):
-        try:
-            global DATASET
-            DATASET = dataset
+        global DATASET
+        DATASET = dataset
 
-            #########################
-            ### SET MAIN LOCATION ###
-            #########################
-            program_path = os.path.dirname(os.path.realpath(__file__))
+        #########################
+        ### SET MAIN LOCATION ###
+        #########################
+        program_path = os.path.dirname(os.path.realpath(__file__))
 
-            with open(program_path + "/folder_location.py") as f:
-                    lines = f.readlines()
+        with open(program_path + "/folder_location.py") as f:
+                lines = f.readlines()
 
-            with open(program_path + "/folder_location.py", "w") as f:
-                    lines.insert(0, "MAIN_MDBN_TCGA_BRCA = \"" + location + "/\"\n\n")
-                    f.write("".join(lines))
+        with open(program_path + "/folder_location.py", "w") as f:
+                lines.insert(0, "MAIN_MDBN_TCGA_BRCA = \"" + location + "/\"\n\n")
+                f.write("".join(lines))
 
-            if not os.path.isdir(location):
-                    os.makedirs(location)
-
+        if not os.path.isdir(location):
+                os.makedirs(location)
 
 
+        already_downloaded = True
 
-            #########################
-            #### DOWNLOAD DATASET ###
-            #########################
-            # 1. Clinical
+        #########################
+        #### DOWNLOAD DATASET ###
+        #########################
+        if not already_downloaded:
+        # 1. Clinical
             if not os.path.isdir(DATASET_CLINICAL):
                     os.makedirs(DATASET_CLINICAL)
             os.chdir(DATASET_CLINICAL)
@@ -80,112 +80,113 @@ def create_dataset(dataset=3, location="/home"):
                     output, error = process.communicate()
                     print(output)
 
-            # back to program path
-            os.chdir(program_path)
+                    # back to program path
+                    os.chdir(program_path)
 
 
-            ############################
-            ##### CREATE MAIN META #####
-            ############################
+        else:
+            print("no download was needed")
 
-            requests_meta()
-            meta_per_case()
-            file_amount()
-            submitter_id_to_case_uuid()
+        ############################
+        ##### CREATE MAIN META #####
+        ############################
 
-
-            ############################
-            ### CREATE CLINICAL META ###
-            ############################
-            from preprocess_clinical import pathology_receptor
-            if not os.path.isdir(TARGET_CLINICAL):
-                    os.makedirs(TARGET_CLINICAL)
-
-            pathology_receptor()
-            copyfile(program_path + "/survival_plot.tsv", TARGET_CLINICAL + "survival_plot.tsv")
+        requests_meta()
+        meta_per_case()
+        file_amount()
+        submitter_id_to_case_uuid()
 
 
-            ############################
-            #### CREATE GENERAL META ###
-            ############################
+        ############################
+        ### CREATE CLINICAL META ###
+        ############################
+        from preprocess_clinical import pathology_receptor
+        if not os.path.isdir(TARGET_CLINICAL):
+                os.makedirs(TARGET_CLINICAL)
 
-            # (DNA Methylation) or (DNA Methylation + Gene Expression + miRNA Expression)
-            if (dataset==1) or (dataset==5):
-                    meta_methylation_list_files()
-                    meta_methylation_cpg()
-                    meta_long_methylation()
-                    meta_methylation_sample_type()
-                    meta_methylation_used_case()
-                    meta_methylation_cpg_index()
+        pathology_receptor()
+        copyfile(program_path + "/survival_plot.tsv", TARGET_CLINICAL + "survival_plot.tsv")
 
 
-            ############################
-            ###### CREATE DATASET ######
-            ############################
+        ############################
+        #### CREATE GENERAL META ###
+        ############################
+
+        # (DNA Methylation) or (DNA Methylation + Gene Expression + miRNA Expression)
+        if (dataset==1) or (dataset==5):
+                meta_methylation_list_files()
+                meta_methylation_cpg()
+                meta_long_methylation()
+                meta_methylation_sample_type()
+                meta_methylation_used_case()
+                meta_methylation_cpg_index()
 
 
-            # 1. labels
-            label_cancer_type(dataset=DATASET)
-            label_survival(dataset=DATASET)
-
-            # 2. DNA Methylation
-            if (dataset==1) or (dataset==5):
-                    input_met_cancer_type()
-                    input_metlong_cancer_type()
-                    input_met_survival()
-                    input_metlong_survival()
-
-            # 3. Gene Expression
-            if (dataset==2) or (dataset==4) or (dataset==5):
-                    input_gen_cancer_type()
-                    input_gen_survival()
-
-            # 4. miRNA Expression
-            if (dataset==3) or (dataset==4) or (dataset==5):
-                    input_mir_cancer_type()
-                    input_mir_survival()
-
-            # 5. Gene Expression + miRNA Expression
-            if (dataset==4) or (dataset==5):
-                    input_gen_genmir_cancer_type()
-                    input_mir_genmir_cancer_type()
-                    input_gen_genmir_survival()
-                    input_mir_genmir_survival()
-
-            # 6. DNA Methylation + Gene Expression + miRNA Expression
-            if (dataset==5):
-                    input_met_metgenmir_cancer_type()
-                    input_gen_metgenmir_cancer_type()
-                    input_mir_metgenmir_cancer_type()
-                    input_metlong_metlonggenmir_cancer_type()
-                    input_gen_metlonggenmir_cancer_type()
-                    input_mir_metlonggenmir_cancer_type()
-                    input_met_metgenmir_survival()
-                    input_gen_metgenmir_survival()
-                    input_mir_metgenmir_survival()
-                    input_metlong_metlonggenmir_survival()
-                    input_gen_metlonggenmir_survival()
-                    input_mir_metlonggenmir_survival()
+        ############################
+        ###### CREATE DATASET ######
+        ############################
 
 
+        # 1. labels
+        label_cancer_type(dataset=DATASET)
+        label_survival(dataset=DATASET)
 
-            ############################
-            ###### CREATE DATASET ######
-            ############################
-            # 1. Tensorflow folder
-            with open(program_path + "/../Tensorflow/dataset_location.py") as f:
-                    lines = f.readlines()
+        # 2. DNA Methylation
+        if (dataset==1) or (dataset==5):
+                input_met_cancer_type()
+                input_metlong_cancer_type()
+                input_met_survival()
+                input_metlong_survival()
 
-            with open(program_path + "/../Tensorflow/dataset_location.py", "w") as f:
-                    lines.insert(0, "MAIN_MDBN_TCGA_BRCA = \"" + location + "/\"\n\n")
-                    f.write("".join(lines))
+        # 3. Gene Expression
+        if (dataset==2) or (dataset==4) or (dataset==5):
+                input_gen_cancer_type()
+                input_gen_survival()
 
-            # 2. Theano folder
-            with open(program_path + "/../Theano/dataset_location.py") as f:
-                    lines = f.readlines()
+        # 4. miRNA Expression
+        if (dataset==3) or (dataset==4) or (dataset==5):
+                input_mir_cancer_type()
+                input_mir_survival()
 
-            with open(program_path + "/../Theano/dataset_location.py", "w") as f:
-                    lines.insert(0, "MAIN_MDBN_TCGA_BRCA = \"" + location + "/\"\n\n")
-                    f.write("".join(lines))
-        except Exception as e:
-            print(e)
+        # 5. Gene Expression + miRNA Expression
+        if (dataset==4) or (dataset==5):
+                input_gen_genmir_cancer_type()
+                input_mir_genmir_cancer_type()
+                input_gen_genmir_survival()
+                input_mir_genmir_survival()
+
+        # 6. DNA Methylation + Gene Expression + miRNA Expression
+        if (dataset==5):
+                input_met_metgenmir_cancer_type()
+                input_gen_metgenmir_cancer_type()
+                input_mir_metgenmir_cancer_type()
+                input_metlong_metlonggenmir_cancer_type()
+                input_gen_metlonggenmir_cancer_type()
+                input_mir_metlonggenmir_cancer_type()
+                input_met_metgenmir_survival()
+                input_gen_metgenmir_survival()
+                input_mir_metgenmir_survival()
+                input_metlong_metlonggenmir_survival()
+                input_gen_metlonggenmir_survival()
+                input_mir_metlonggenmir_survival()
+
+
+
+        ############################
+        ###### CREATE DATASET ######
+        ############################
+        # 1. Tensorflow folder
+        with open(program_path + "/../Tensorflow/dataset_location.py") as f:
+                lines = f.readlines()
+
+        with open(program_path + "/../Tensorflow/dataset_location.py", "w") as f:
+                lines.insert(0, "MAIN_MDBN_TCGA_BRCA = \"" + location + "/\"\n\n")
+                f.write("".join(lines))
+
+        # 2. Theano folder
+        with open(program_path + "/../Theano/dataset_location.py") as f:
+                lines = f.readlines()
+
+        with open(program_path + "/../Theano/dataset_location.py", "w") as f:
+                lines.insert(0, "MAIN_MDBN_TCGA_BRCA = \"" + location + "/\"\n\n")
+                f.write("".join(lines))
