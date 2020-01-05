@@ -31,21 +31,21 @@ ns = {'brca': 'http://tcga.nci/bcr/xml/clinical/brca/2.7',
 def all_prefix():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
 
     meta_clinicals = meta_clinicals[1:]
-    
+
     # Empty list for prefix
     prefix = []
 
     # Iterate for every patient's clinical data
     for meta_clinical in meta_clinicals:
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
-        
+        file_name = meta_clinical[file_name_column]
+
         # parse the XML file
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
 
@@ -80,13 +80,13 @@ def all_prefix():
 def compare_elmt():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
 
     meta_clinicals = meta_clinicals[1:]
-    
+
     elmts_tag = []
     elmts_attrib = []
     elmts_text = []
@@ -101,7 +101,7 @@ def compare_elmt():
 
     for meta_clinical in meta_clinicals:
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -113,10 +113,10 @@ def compare_elmt():
 
         for child in root[1][102]:
             temp_text = []
-            
+
             for e in child[11]:
                 temp_text.append(e.text)
-            
+
             elmts_text.append(temp_text)
 
     #compare_tag = elmts_tag[1:] == elmts_tag[:-1]
@@ -136,19 +136,19 @@ def compare_elmt():
 def compare_elmt_len():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
 
     meta_clinicals = meta_clinicals[1:]
-    
+
     elmts_len = []
 
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -160,7 +160,7 @@ def compare_elmt_len():
             for child in root[1][102]:
                 for e in child[11]:
                     elmts_len.append(len(e))
-                    
+
         if (len(root[1][103]) > 0):
             for child in root[1][103]:
                 temp_len = []
@@ -190,7 +190,7 @@ def compare_elmt_len():
 def uuid():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -205,7 +205,7 @@ def uuid():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -234,7 +234,7 @@ def uuid():
         for child in root[1].find('brca:follow_ups', ns).findall('follow_up_v4.0:follow_up', ns):
             new_dict[meta_clinical[case_id_column]]['follow_ups_40'].append(child.find('clin_shared:bcr_followup_uuid', ns).text)
 
-    
+
     # Create folder for clinical processed data
     if not os.path.isdir(TARGET_CLINICAL):
         os.makedirs(TARGET_CLINICAL)
@@ -255,7 +255,7 @@ def uuid():
 def form_completion():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -273,7 +273,7 @@ def form_completion():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -363,12 +363,12 @@ def form_completion():
         for case in meta_clinicals_case_id:
             # Set general completion date
             date_general = datetime(int(form_completion_dict[case]['general']['year']), int(form_completion_dict[case]['general']['month']), int(form_completion_dict[case]['general']['day']))
-            
+
             row = {}
-            
+
             # case
             row['Case'] = case
-            
+
 
             # number of drugs and comparison to general completion date
             row['Drugs'] = len(form_completion_dict[case]['drugs'])
@@ -402,7 +402,7 @@ def form_completion():
                     le = le + 1
                 elif date_radiation > date_general:
                     mo = mo + 1
-            
+
             row['Radiations == General'] = eq
             row['Radiations < General'] = le
             row['Radiations > General'] = mo
@@ -421,7 +421,7 @@ def form_completion():
                     le = le + 1
                 elif date_follow_up_15 > date_general:
                     mo = mo + 1
-            
+
             row['Follow-Up 1.5 == General'] = eq
             row['Follow-Up 1.5 < General'] = le
             row['Follow-Up 1.5 > General'] = mo
@@ -440,7 +440,7 @@ def form_completion():
                     le = le + 1
                 elif date_follow_up_21 > date_general:
                     mo = mo + 1
-            
+
             row['Follow-Up 2.1 == General'] = eq
             row['Follow-Up 2.1 < General'] = le
             row['Follow-Up 2.1 > General'] = mo
@@ -459,7 +459,7 @@ def form_completion():
                     le = le + 1
                 elif date_follow_up_40 > date_general:
                     mo = mo + 1
-            
+
             row['Follow-Up 4.0 == General'] = eq
             row['Follow-Up 4.0 < General'] = le
             row['Follow-Up 4.0 > General'] = mo
@@ -477,7 +477,7 @@ def form_completion():
 def general():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -495,7 +495,7 @@ def general():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -542,7 +542,7 @@ def general():
             row['Menopause Status'] = general[case]['menopause_status']
             row['Neoadjuvant Treatment'] = general[case]['neoadjuvant_treatment']
             row['Result'] = general[case]['result']
-            
+
             writer.writerow(row)
 
     print("general.csv is created.")
@@ -553,7 +553,7 @@ def general():
 def pathology_general():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -571,7 +571,7 @@ def pathology_general():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
 
         # parse the XML file and take the root
@@ -717,7 +717,7 @@ def pathology_general():
                 row['Site (Lower Inner)'] = "YES"
             if "Lower Outer Quadrant" in pathology_general[case]['specific_site']:
                 row['Site (Lower Outer)'] = "YES"
-            
+
             writer.writerow(row)
 
     print("pathology_general.csv is created.")
@@ -728,7 +728,7 @@ def pathology_general():
 def pathology_receptor():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -742,13 +742,22 @@ def pathology_receptor():
     # Empty dictionary for the final data
     new_dict = {}
 
+    bad_list = ['004b6bd4-19d0-4b40-99ef-1a76313fe7a5']
     # Iterate for each patient's clinical data and take the drugs', radiations', and follow-ups' id
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
+
+        if meta_clinical in bad_list:
+            print('bad filename: ' , meta_clinical)
+            continue
+
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
+
+
+
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
         root = tree.getroot()
 
@@ -801,7 +810,7 @@ def pathology_receptor():
             row['HER2 Percentage'] = pathology_receptor[case]['her2_percentage']
             row['HER2 IHC Status'] = pathology_receptor[case]['her2_ihc_status']
             row['HER2 FISH Status'] = pathology_receptor[case]['her2_fish_status']
-            
+
             writer.writerow(row)
 
     print("pathology_receptor.csv is created.")
@@ -812,7 +821,7 @@ def pathology_receptor():
 def pathology_lymph():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -830,7 +839,7 @@ def pathology_lymph():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -870,7 +879,7 @@ def pathology_lymph():
             row['Amount of Nodes Examined'] = pathology_lymph[case]['amount_nodes_examined']
             row['Amount of Positive Nodes by IHC'] = pathology_lymph[case]['amount_nodes_positive_by_ihc']
             row['Amount of Positive Nodes by HE'] = pathology_lymph[case]['amount_nodes_positive_by_he']
-            
+
             writer.writerow(row)
 
     print("pathology_lymph.csv is created.")
@@ -881,7 +890,7 @@ def pathology_lymph():
 def pathology_stage():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -899,7 +908,7 @@ def pathology_stage():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -943,7 +952,7 @@ def pathology_stage():
             row['TNM Stage T'] = pathology_stage[case]['tnm_stage_t']
             row['TNM Stage N'] = pathology_stage[case]['tnm_stage_n']
             row['TNM Stage M'] = pathology_stage[case]['tnm_stage_m']
-            
+
             writer.writerow(row)
 
     print("pathology_stage.csv is created.")
@@ -954,7 +963,7 @@ def pathology_stage():
 def surgery():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -972,7 +981,7 @@ def surgery():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -1126,7 +1135,7 @@ def surgery():
             row['Reexcision Surgery'] = surgery[case]['reexcision_surgery']
             row['Margin Status'] = surgery[case]['margin_status']
             row['Reexcision Margin Status'] = surgery[case]['reexcision_margin_status']
-            
+
             writer.writerow(row)
 
     print("surgery.csv is created.")
@@ -1137,7 +1146,7 @@ def surgery():
 def drugs():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -1155,7 +1164,7 @@ def drugs():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
@@ -1380,7 +1389,7 @@ def drugs():
 def radiations():
     # Load meta for clinical data
     meta_clinicals = np.genfromtxt(TARGET_META_CSV + "clinical_supplement.csv", dtype=str, delimiter=',', skip_header=0)
-    
+
     # find where the case id column is located in your meta_clinicals.csv
     file_id_column, = np.where(meta_clinicals[0]=='file_id')[0]
     file_name_column, = np.where(meta_clinicals[0]=='file_name')[0]
@@ -1398,7 +1407,7 @@ def radiations():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
         file_id = meta_clinical[file_id_column]
-        file_name = meta_clinical[file_name_column] 
+        file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
         tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
