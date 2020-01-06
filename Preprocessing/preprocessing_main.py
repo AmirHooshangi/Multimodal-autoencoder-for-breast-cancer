@@ -62,7 +62,7 @@ def create_dataset(dataset=3, location="/home"):
                             os.makedirs(DATASET_GENE)
                     os.chdir(DATASET_GENE)
 
-                    bashCommand = program_path + "/gdc-client download -m " + program_path + "/gdc_manifest_gen_20180225.txt"
+                    bashCommand = "echo 0" #program_path + "/gdc-client download -m " + program_path + "/gdc_manifest_gen_20180225.txt"
                     print("\nDownloading gene expression file ...\n")
                     process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
                     output, error = process.communicate()
