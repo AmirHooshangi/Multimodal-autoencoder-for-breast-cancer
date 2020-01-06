@@ -1,21 +1,5 @@
 MAIN_MDBN_TCGA_BRCA = "/home/"
 
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
-MAIN_MDBN_TCGA_BRCA = "/home/"
-
 ######################################
 ########### DATASET SOURCE ###########
 ######################################

@@ -742,7 +742,6 @@ def pathology_receptor():
     # Empty dictionary for the final data
     new_dict = {}
 
-    bad_list = ['004b6bd4-19d0-4b40-99ef-1a76313fe7a5', '00a5e81c-cd67-483f-9d99-3c733b2ead38']
     # Iterate for each patient's clinical data and take the drugs', radiations', and follow-ups' id
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
@@ -752,10 +751,6 @@ def pathology_receptor():
         file_name = meta_clinical[file_name_column]
 
         # parse the XML file and take the root
-
-        if file_id in bad_list:
-            print('bad filename: ' , file_id)
-            continue
 
         tree = None
 
