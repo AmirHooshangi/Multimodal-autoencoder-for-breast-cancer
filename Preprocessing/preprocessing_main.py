@@ -27,7 +27,7 @@ def create_dataset(dataset=3, location="/home"):
                 os.makedirs(location)
 
 
-        already_downloaded = False
+        already_downloaded = True
 
         #########################
         #### DOWNLOAD DATASET ###
@@ -84,17 +84,16 @@ def create_dataset(dataset=3, location="/home"):
                     os.chdir(program_path)
 
 
+            requests_meta()
+            meta_per_case()
+            file_amount()
+            submitter_id_to_case_uuid()
         else:
             print("no download was needed")
 
         ############################
         ##### CREATE MAIN META #####
         ############################
-
-        requests_meta()
-        meta_per_case()
-        file_amount()
-        submitter_id_to_case_uuid()
 
 
         ############################
