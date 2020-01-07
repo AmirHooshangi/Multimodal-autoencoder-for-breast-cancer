@@ -767,6 +767,7 @@ def pathology_receptor():
         print(type(root))
         print("#########")
         print(root[1])
+        print(file_id, file_name)
 
         # ER
         new_dict[meta_clinical[case_id_column]]['er_percentage'] = root[1].find('brca_shared:er_level_cell_percentage_category', ns).text
