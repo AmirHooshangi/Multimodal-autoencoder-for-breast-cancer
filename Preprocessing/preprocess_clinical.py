@@ -762,6 +762,10 @@ def pathology_receptor():
 
         new_dict[meta_clinical[case_id_column]] = {'er_percentage':{}, 'er_status':{}, 'pgr_percentage':{}, 'pgr_status':{}, 'her2_total_cell_count':{}, 'her2_percentage':{}, 'her2_ihc_status':{}, 'her2_fish_status':{}}
 
+        print(root)
+        print(type(root))
+        print(root[1])
+
         # ER
         new_dict[meta_clinical[case_id_column]]['er_percentage'] = root[1].find('brca_shared:er_level_cell_percentage_category', ns).text
         new_dict[meta_clinical[case_id_column]]['er_status'] = root[1].find('brca_shared:breast_carcinoma_estrogen_receptor_status', ns).text
