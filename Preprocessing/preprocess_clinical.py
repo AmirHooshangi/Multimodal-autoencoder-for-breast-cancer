@@ -746,7 +746,7 @@ def pathology_receptor():
     for meta_clinical in meta_clinicals:
         # find the file id and file name column in your clinical_supplement.csv
 
-      
+
         file_id = meta_clinical[file_id_column]
         file_name = meta_clinical[file_name_column]
 
@@ -754,12 +754,10 @@ def pathology_receptor():
 
         tree = None
 
-        try: 
-            tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
-        except:
-            print(file_id, " ", file_name)
-            continue
-            
+
+        tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
+
+
         root = tree.getroot()
 
         new_dict[meta_clinical[case_id_column]] = {'er_percentage':{}, 'er_status':{}, 'pgr_percentage':{}, 'pgr_status':{}, 'her2_total_cell_count':{}, 'her2_percentage':{}, 'her2_ihc_status':{}, 'her2_fish_status':{}}
