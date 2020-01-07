@@ -763,7 +763,9 @@ def pathology_receptor():
         new_dict[meta_clinical[case_id_column]] = {'er_percentage':{}, 'er_status':{}, 'pgr_percentage':{}, 'pgr_status':{}, 'her2_total_cell_count':{}, 'her2_percentage':{}, 'her2_ihc_status':{}, 'her2_fish_status':{}}
 
         print(root)
+        print("######")
         print(type(root))
+        print("#########")
         print(root[1])
 
         # ER
