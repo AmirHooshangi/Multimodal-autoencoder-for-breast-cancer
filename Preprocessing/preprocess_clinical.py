@@ -754,15 +754,17 @@ def pathology_receptor():
 
         tree = None
 
-
-        tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
-
+        try:
+            tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
+        except:
+            print("bad file: ", file_name )
+            continue
 
         root = tree.getroot()
 
         new_dict[meta_clinical[case_id_column]] = {'er_percentage':{}, 'er_status':{}, 'pgr_percentage':{}, 'pgr_status':{}, 'her2_total_cell_count':{}, 'her2_percentage':{}, 'her2_ihc_status':{}, 'her2_fish_status':{}}
 
-        print(file_id, file_name)
+
 
         if "omf" in file_name:
             continue
