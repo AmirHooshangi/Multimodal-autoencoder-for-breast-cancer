@@ -757,7 +757,7 @@ def pathology_receptor():
         try:
             tree = ET.parse(DATASET_CLINICAL + file_id + "/" + file_name)
         except:
-            print("bad file: ", file_name )
+            print("bad file: ", file_id ,file_name )
             continue
 
         root = tree.getroot()
