@@ -3,3 +3,4 @@ Preprocessing/__pycache__/
 Tensorflow/__pycache__/
 *~
 *#
+.idea/
