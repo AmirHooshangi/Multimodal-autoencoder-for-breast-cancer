@@ -762,12 +762,10 @@ def pathology_receptor():
 
         new_dict[meta_clinical[case_id_column]] = {'er_percentage':{}, 'er_status':{}, 'pgr_percentage':{}, 'pgr_status':{}, 'her2_total_cell_count':{}, 'her2_percentage':{}, 'her2_ihc_status':{}, 'her2_fish_status':{}}
 
-        print(root)
-        print("######")
-        print(type(root))
-        print("#########")
-        print(root[1])
         print(file_id, file_name)
+
+        if "omf" in file_name:
+            continue
 
         # ER
         new_dict[meta_clinical[case_id_column]]['er_percentage'] = root[1].find('brca_shared:er_level_cell_percentage_category', ns).text
