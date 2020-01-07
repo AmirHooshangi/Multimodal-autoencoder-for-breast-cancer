@@ -1,4 +1,4 @@
-from folder_location import *
+from Preprocessing.folder_location import *
 
 import os
 import csv

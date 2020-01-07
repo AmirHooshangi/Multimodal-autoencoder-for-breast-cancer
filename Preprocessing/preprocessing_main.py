@@ -2,10 +2,10 @@ import os
 import sys
 import subprocess
 from shutil import copyfile
-from folder_location import *
-from preprocess_meta import *
-from preprocess_others import *
-from preprocess_packaging import *
+from Preprocessing.folder_location import *
+from Preprocessing.preprocess_meta import *
+from Preprocessing.preprocess_others import *
+from Preprocessing.preprocess_packaging import *
 
 def create_dataset(dataset=3, location="/home"):
         global DATASET
@@ -99,7 +99,7 @@ def create_dataset(dataset=3, location="/home"):
         ############################
         ### CREATE CLINICAL META ###
         ############################
-        from preprocess_clinical import pathology_receptor
+        from Preprocessing.preprocess_clinical import pathology_receptor
         if not os.path.isdir(TARGET_CLINICAL):
                 os.makedirs(TARGET_CLINICAL)
 

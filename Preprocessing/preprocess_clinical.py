@@ -1,4 +1,4 @@
-from folder_location import *
+from Preprocessing.folder_location import *
 
 import os
 import csv
@@ -806,19 +806,21 @@ def pathology_receptor():
 
         writer.writeheader()
         for case in meta_clinicals_case_id:
-            row = {}
-            row['Case'] = case
-            row['ER Percentage'] = pathology_receptor[case]['er_percentage']
-            row['ER Status'] = pathology_receptor[case]['er_status']
-            row['PGR Percentage'] = pathology_receptor[case]['pgr_percentage']
-            row['PGR Status'] = pathology_receptor[case]['pgr_status']
-            row['HER2 Total Cell Count'] = pathology_receptor[case]['her2_total_cell_count']
-            row['HER2 Percentage'] = pathology_receptor[case]['her2_percentage']
-            row['HER2 IHC Status'] = pathology_receptor[case]['her2_ihc_status']
-            row['HER2 FISH Status'] = pathology_receptor[case]['her2_fish_status']
+            try:
+                row = {}
+                row['Case'] = case
+                row['ER Percentage'] = pathology_receptor[case]['er_percentage']
+                row['ER Status'] = pathology_receptor[case]['er_status']
+                row['PGR Percentage'] = pathology_receptor[case]['pgr_percentage']
+                row['PGR Status'] = pathology_receptor[case]['pgr_status']
+                row['HER2 Total Cell Count'] = pathology_receptor[case]['her2_total_cell_count']
+                row['HER2 Percentage'] = pathology_receptor[case]['her2_percentage']
+                row['HER2 IHC Status'] = pathology_receptor[case]['her2_ihc_status']
+                row['HER2 FISH Status'] = pathology_receptor[case]['her2_fish_status']
 
-            writer.writerow(row)
-
+                writer.writerow(row)
+            except:
+                print(case)
     print("pathology_receptor.csv is created.")
 
 

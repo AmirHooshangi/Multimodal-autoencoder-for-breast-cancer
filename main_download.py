@@ -34,7 +34,7 @@ def main():
 	# Send the type of dataset to download and the target folder
 	program_path = os.path.dirname(os.path.realpath(__file__))
 	sys.path.insert(0, program_path + '/Preprocessing')
-	from preprocessing_main import create_dataset
+	from Preprocessing.preprocessing_main import create_dataset
 	create_dataset(dataset=DATASET, location=MAIN_LOCATION)
 
 
