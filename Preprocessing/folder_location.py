@@ -1,6 +1,6 @@
 
 
-MAIN_MDBN_TCGA_BRCA = "/content/drive/My Drive/tcga-brca"
+MAIN_MDBN_TCGA_BRCA = "/content/drive/My Drive/tcga-brca/"
 
 ######################################
 ########### DATASET SOURCE ###########
