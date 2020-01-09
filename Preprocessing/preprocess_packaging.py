@@ -1032,7 +1032,8 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #TODO: why it's here!?
+        #print(case)
         
         row = file[:60483,1].astype(float)
         input_gen_count_type_er = np.vstack([input_gen_count_type_er,row])
@@ -1050,7 +1051,8 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkm_type_er = np.vstack([input_gen_fpkm_type_er,row])
@@ -1068,7 +1070,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkmuq_type_er = np.vstack([input_gen_fpkmuq_type_er,row])
@@ -1085,7 +1087,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:60483,1].astype(float)
         input_gen_count_type_pgr = np.vstack([input_gen_count_type_pgr,row])
@@ -1103,7 +1105,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkm_type_pgr = np.vstack([input_gen_fpkm_type_pgr,row])
@@ -1121,7 +1123,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkmuq_type_pgr = np.vstack([input_gen_fpkmuq_type_pgr,row])
@@ -1138,7 +1140,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:60483,1].astype(float)
         input_gen_count_type_her2 = np.vstack([input_gen_count_type_her2,row])
@@ -1156,7 +1158,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkm_type_her2 = np.vstack([input_gen_fpkm_type_her2,row])
@@ -1174,7 +1176,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkmuq_type_her2 = np.vstack([input_gen_fpkmuq_type_her2,row])
@@ -1191,7 +1193,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:60483,1].astype(float)
         input_gen_count_type_univ = np.vstack([input_gen_count_type_univ,row])
@@ -1209,7 +1211,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkm_type_univ = np.vstack([input_gen_fpkm_type_univ,row])
@@ -1227,7 +1229,7 @@ def input_gen_cancer_type():
         
         with gzip.open(DATASET_GENE + file_id + "/" + file_name) as f:
             file = np.genfromtxt(f, dtype=str, delimiter='\t')
-        print(case)
+        #print(case)
         
         row = file[:,1].astype(float)
         input_gen_fpkmuq_type_univ = np.vstack([input_gen_fpkmuq_type_univ,row])
@@ -3507,9 +3509,12 @@ def input_mir_survival():
     for case in cases_mir_sur:
         file_id = data_mir[np.intersect1d(np.where(data_mir[:,case_id_column] == case), np.where(data_mir[:,sample_type_column] == "Primary Tumor")),file_id_column][0]
         file_name = data_mir[np.intersect1d(np.where(data_mir[:,case_id_column] == case), np.where(data_mir[:,sample_type_column] == "Primary Tumor")),file_name_column][0]
-        
-        file = np.genfromtxt(DATASET_MIRNA + file_id + "/" + file_name, dtype=str, delimiter='\t', skip_header=1)
-        
+
+        try:
+            file = np.genfromtxt(DATASET_MIRNA + file_id + "/" + file_name, dtype=str, delimiter='\t', skip_header=1)
+        except:
+            print("bad file:", file_id , " " , file_name )
+
         row = file[:,1].astype(float)
         input_mir_sur = np.vstack([input_mir_sur,row])
 
