@@ -1,4 +1,6 @@
-MAIN_MDBN_TCGA_BRCA = "/home/"
+
+
+MAIN_MDBN_TCGA_BRCA = "/content/drive/My Drive/tcga-brca"
 
 ######################################
 ########### DATASET SOURCE ###########
